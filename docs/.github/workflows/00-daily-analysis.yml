@@ -1,0 +1,25 @@
+name: Daily Analysis # 工作流的名字，会显示在 Actions 页面
+
+# on: 是触发条件
+on:
+  schedule:
+    # 每天北京时间 18:00 (UTC 10:00) 周一到周五执行
+    - cron: '0 10 * * 1-5'
+  
+  # 加上这个，你就可以在网页上手动点击运行，方便测试
+  workflow_dispatch: 
+
+# jobs: 是具体要执行的任务
+jobs:
+  run-analysis:
+    runs-on: ubuntu-latest # 在一台最新的 Ubuntu 虚拟机上运行
+    
+    steps:
+      # 第一步：把你的代码拉取到虚拟机里
+      - name: Checkout code
+        uses: actions/checkout@v4 
+        
+      # 第二步：测试打印一段话（这里替换成你真实想运行的命令，比如 python script.py）
+      - name: Test Run
+        run: |
+          echo "你好！北京时间 18:00，开始执行每日分析任务！"
